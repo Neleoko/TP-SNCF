@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
 public class FormMenu extends JFrame{
     private JLabel lblTrain;
@@ -42,7 +43,14 @@ public class FormMenu extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                FormInscription form = new FormInscription();
+                FormInscription form = null;
+                try {
+                    form = new FormInscription();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                } catch (ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
                 form.setVisible(true);
             }
         });
