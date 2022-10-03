@@ -1,10 +1,13 @@
 package Vues;
 
 import Controlleurs.CtrlActivte;
+import Controlleurs.CtrlFormation;
 import Tools.ConnexionBDD;
 import Tools.ModelJTable;
 
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
 public class FormInscription extends FormMenu  {
@@ -21,6 +24,7 @@ public class FormInscription extends FormMenu  {
     private ConnexionBDD maCnx;
     private ModelJTable mdlActi;
     private CtrlActivte ctrlActi;
+    private CtrlFormation ctrlForma;
 
     public FormInscription() throws SQLException, ClassNotFoundException{
         this.setTitle("Inscription");
@@ -37,7 +41,21 @@ public class FormInscription extends FormMenu  {
         tblActivites.setModel(mdlActi);
 
 
+        tblActivites.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                ctrlForma = new CtrlFormation();
+                mdlActi = new ModelJTable();
+                int numeroActi = Integer.parseInt(tblActivites.getValueAt(tblActivites.getSelectedRow(),0).toString());
+                try {
+                    mdlActi.LoadDatasFormation(ctrlForma.getFormationByIdActivite(numeroActi));
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+                tblFormation.setModel(mdlActi);
 
-
+            }
+        });
     }
 }

@@ -1,6 +1,7 @@
 package Tools;
 
 import Entities.Activite;
+import Entities.Formation;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
@@ -42,15 +43,15 @@ public class ModelJTable extends AbstractTableModel {
         fireTableChanged(null);
     }
 
-//    public void LoadDatasJeux(ArrayList<Jeu> LesJeux){
-//        colonnes = new String[]{"Numéro","Nom"};
-//        lignes = new Object[LesJeux.size()][2];
-//        int i = 0;
-//        for (Jeu unJeu:LesJeux){
-//            lignes[i][0] = unJeu.getIdJeu();
-//            lignes[i][1] = unJeu.getNomJeu();
-//            i++;
-//        }
-//        fireTableChanged(null);
-//    }
+    public void LoadDatasFormation(ArrayList<Formation> LesFormations){
+        colonnes = new String[]{"Numéro","Nom"};
+        lignes = new Object[LesFormations.size()][2];
+        int i = 0;
+        for (Formation unFormation:LesFormations){
+            lignes[i][0] = unFormation.getCode();
+            lignes[i][1] = unFormation.getInitule();
+            i++;
+        }
+        fireTableChanged(null);
+    }
 }
